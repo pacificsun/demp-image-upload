@@ -9,5 +9,7 @@
 #backend\
 1.aws api gateway to create a rest api
 2.lambda to process data send from front end\
-3. s3 to upload image\
-4. serverless framework to deploy and manage our backend
+3.s3 to upload image\
+4.serverless framework to deploy and manage our backend\
+5.package serverless bundle is used to enable es6 and webpack
+
