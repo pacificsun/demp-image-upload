@@ -1,0 +1,14 @@
+{
+  "name": "image-upload-backend",
+  "version": "1.0.0",
+  "description": "This for challenge",
+  "main": "index.js",
+  "author": "Suraj Thapa",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.799.0",
+    "axios": "^0.21.0",
+    "file-type": "^16.0.1",
+    "serverless-bundle": "^4.1.0"
+  }
+}

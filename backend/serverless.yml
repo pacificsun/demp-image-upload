@@ -1,0 +1,42 @@
+service: image-upload-backend
+
+plugins:
+  - serverless-bundle # Package our functions with Webpack
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-southeast-2
+  stage: dev
+  environment:
+    imageUploadBucket: ${self:custom.imageUploadBucket}
+    region: ${self:provider.region}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: '*'
+
+package:
+  individually: true
+
+custom:
+  imageUploadBucket: demo-image-upload-bucket07
+
+functions:
+  imageUpload:
+    handler: lambdas/api/uploadImage.handler
+    name: ${self:service}-function
+    events:
+      - http:
+          path: image-upload
+          method: POST
+          cors: true
+
+resources:
+  Resources:
+    ImageUploadBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.imageUploadBucket}
+        AccessControl: PublicRead

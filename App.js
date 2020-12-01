@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { Camera } from 'expo-camera';
 
+import axios from 'axios';
+
 const uploadEndPoint =
   'https://kxugngk07d.execute-api.ap-southeast-2.amazonaws.com/dev/image-upload';
 
@@ -48,30 +50,39 @@ export default function App() {
       setCapturedImage(photo);
     }
   };
-  const __savePhoto = () => {
+  const __savePhoto = async () => {
     console.log('save photo');
-    // let formData = new FormData();
-    // const { height, uri, width } = capturedImage;
-    // formData.append('photo', {
-    //   uri,
-    //   name: `photo.jpg`,
-    //   type: `image/jpg`,
-    //   height,
-    //   width,
-    // });
-    // let options = {
-    //   method: 'POST',
-    //   body: formData,
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    // };
+
     // try {
-    //   return fetch(uploadEndPoint, options);
-    // } catch (error) {
-    //   console.error(error);
+    //   const res = await axios.post(uploadEndPoint, capturedImage);
+    //   console.log('res>>', JSON.stringify(res));
+    // } catch (err) {
+    //   console.error(err);
     // }
+    // const pairs = {
+    //   mime: 'image/jpg',
+    // };
+    // const res = axios
+    //   .post(uploadEndPoint, capturedImage)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (response) {
+    //     console.log(response);
+    //   });
+    const res = axios
+      .post(uploadEndPoint, capturedImage, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    console.log('res>>', JSON.stringify(res));
   };
   const __retakePicture = () => {
     setCapturedImage(null);
